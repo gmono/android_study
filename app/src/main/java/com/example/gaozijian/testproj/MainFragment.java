@@ -61,16 +61,15 @@ public class MainFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         //
-        V8 v8=V8.createV8Runtime();
-        EditText editText=(EditText)getActivity().findViewById(R.id.editText);
-        editText.setText(v8.getV8Version());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        View ret= inflater.inflate(R.layout.fragment_main, container, false);
+
+        return ret;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -96,6 +95,16 @@ public class MainFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        V8 v8=V8.createV8Runtime();
+        EditText editText=(EditText)getView().findViewById(R.id.editText);
+        editText.setText(v8.getV8Version());
+    }
+
 
     /**
      * This interface must be implemented by activities that contain this

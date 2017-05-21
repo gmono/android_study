@@ -1,6 +1,7 @@
 package com.example.gaozijian.testproj;
 
 import android.app.Fragment;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,13 +14,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
 import com.eclipsesource.v8.*;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-
-    Fragment mainfrag=new MainFragment();
-    Fragment varsfrag=new VarsFragment();
+        implements NavigationView.OnNavigationItemSelectedListener,MainFragment.OnFragmentInteractionListener,VarsFragment.OnFragmentInteractionListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity
         //
 //        getSupportActionBar().hide();
         //
-        getFragmentManager().beginTransaction().replace(R.id.main_frame,mainfrag).commit();
+        getFragmentManager().beginTransaction().replace(R.id.main_frame,MainFragment.newInstance("hello","world")).commit();
     }
 
     @Override
@@ -91,9 +91,9 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-            getFragmentManager().beginTransaction().replace(R.id.main_frame,mainfrag);
+            getFragmentManager().beginTransaction().replace(R.id.main_frame,MainFragment.newInstance("ddd","aaa")).commit();
         } else if (id == R.id.nav_slideshow) {
-            getFragmentManager().beginTransaction().replace(R.id.main_frame,varsfrag);
+            getFragmentManager().beginTransaction().replace(R.id.main_frame,VarsFragment.newInstance("aaa","hhh")).commit();
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
@@ -105,5 +105,10 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        Toast.makeText(this,uri.toString(),Toast.LENGTH_LONG);
     }
 }
